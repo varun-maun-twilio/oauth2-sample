@@ -34,10 +34,13 @@ jobs:
           envkey_IU_AUTH0_TOKEN_URL: ${{secrets.IU_AUTH0_TOKEN_URL}}
           envkey_IU_AUTH0_CLIENT_ID: ${{secrets.IU_AUTH0_CLIENT_ID}}
           envkey_IU_AUTH0_CLIENT_SECRET: ${{secrets.IU_AUTH0_CLIENT_SECRET}}
-          envkey_IU_AUTH0_API_IDENTIFIER: ${{secrets.IU_AUTH0_API_IDENTIFIER}}   
+          envkey_IU_AUTH0_API_IDENTIFIER: ${{secrets.IU_AUTH0_API_IDENTIFIER}} 
+          directory: ./
+          file_name: .env
+          fail_on_empty: true  
 
       - name: Test env
-        run: cat .env
+        run: cat .env && ls -l
       - name: Install twilio cli, and run deploy command for serverless
         env:
          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
