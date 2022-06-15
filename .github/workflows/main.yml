@@ -1,0 +1,43 @@
+name: deploy-twilio
+
+
+on:
+  push:
+    branches: [ master ]
+
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          envkey_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          envkey_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+          envkey_IU_SYNC_SERVICE_SID: ${{ secrets.IU_SYNC_SERVICE_SID }}
+          envkey_IU_MIDDLEWARE_AUTH_MODE: auth0
+          envkey_IU_BASIC_AUTH_USERNAME: basicuserxyz
+          envkey_IU_BASIC_AUTH_PASSWORD: basicuser123
+          envkey_IU_AUTH0_TOKEN_URL: ${{secrets.IU_AUTH0_TOKEN_URL}}
+          envkey_IU_AUTH0_CLIENT_ID: ${{secrets.IU_AUTH0_CLIENT_ID}}
+          envkey_IU_AUTH0_CLIENT_SECRET: ${{secrets.IU_AUTH0_CLIENT_SECRET}}
+          envkey_IU_AUTH0_API_IDENTIFIER: ${{secrets.IU_AUTH0_API_IDENTIFIER}}   
+
+      - name: Install twilio cli, and run deploy command for serverless
+        env:
+         TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+         TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+        run: npm install twilio-cli -g && twilio plugins:install @twilio-labs/plugin-serverless && twilio serverless:deploy --override-existing-project
+     
