@@ -35,6 +35,8 @@ jobs:
           envkey_IU_AUTH0_CLIENT_SECRET: ${{secrets.IU_AUTH0_CLIENT_SECRET}}
           envkey_IU_AUTH0_API_IDENTIFIER: ${{secrets.IU_AUTH0_API_IDENTIFIER}}   
 
+      - name: Test env
+        run: cat .env
       - name: Install twilio cli, and run deploy command for serverless
         env:
          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}

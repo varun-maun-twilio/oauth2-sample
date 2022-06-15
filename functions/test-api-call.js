@@ -15,7 +15,7 @@ exports.handler = async function(context, event, callback) {
     url:'https://test-endpoint.free.beeceptor.com',
     method:'POST',
     data: {
-      firstName: 'FName1',
+      firstName: 'FName1_1',
       lastName:'LName2'
     },
   })
