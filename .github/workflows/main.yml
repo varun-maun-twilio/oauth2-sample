@@ -24,6 +24,7 @@ jobs:
       - name: Make envfile
         uses: SpicyPizza/create-envfile@v1.3
         with:
+          envkey_TEST_ENV: abc123
           envkey_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
           envkey_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
           envkey_IU_SYNC_SERVICE_SID: ${{ secrets.IU_SYNC_SERVICE_SID }}
